@@ -21,6 +21,7 @@ class KNN:
         return dic
 
     def predict(self, X):
+
         predictions = [self.predictHelper(x) for x in X]
         self.clearDic()
         
@@ -30,12 +31,14 @@ class KNN:
         for x_train , label in zip(self.X , self.y):
             distances.append((self.euclideanDistance(x_train, x) , label)) 
         distances = sorted(distances)
-        
+
         max_label = 0
+        n_labels = 0
         for i in distances[:self.k]:
             self.labels[i[1]] += 1
-            if(self.labels[i[1]] > max_label):
+            if(self.labels[i[1]] > n_labels):
                 max_label = i[1]
+                n_labels = self.labels[i[1]]
 
         return max_label
     
